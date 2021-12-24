@@ -1,5 +1,7 @@
 const findSum = function(array) {
-  // your code here - don't forget to return a number!
+  return array.reduce(function (firstNum, secondNum) {
+    return firstNum + secondNum;
+  });
 };
 
 const findFrequency = function(array) {
