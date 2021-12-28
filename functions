@@ -5,11 +5,43 @@ const findSum = function(array) {
 };
 
 const findFrequency = function(array) {
-  // your code here - don't forget to return an object!
+  const frequencyCounter = array.reduce((trackingObject, thisString) => {
+
+    let firstTrackingObject = {};
+    if (typeof trackingObject === 'string') {
+      firstTrackingObject[trackingObject] = 1;
+      firstTrackingObject[thisString] = 1;
+      return firstTrackingObject;
+    }
+
+    if (trackingObject[thisString]) {
+      trackingObject[thisString]++;
+    } else {
+      trackingObject[thisString] = 1;
+    }
+    return trackingObject;
+  });
+  
+  let most;
+  let least;
+  for (let property in frequencyCounter) {
+    if (most === undefined || frequencyCounter[property] > frequencyCounter[most]) {
+      most = property;
+    } else if (least === undefined || frequencyCounter[property] < frequencyCounter[least]) {
+      least = property;
+    }
+  }
+
+  return {most: [most], least: [least]};
 };
 
 const isPalindrome = function(str) {
-  // your code here - don't forget to return a boolean!
+  const charArray = str.toLowerCase().split('');
+  const palindromeArray = [];
+  for (let index = charArray.length - 1; index >= 0; index--) {
+    palindromeArray.push(charArray[index]);
+  }
+  return palindromeArray.join('') === str.toLowerCase();
 };
 
 const largestPair = function(array) {
