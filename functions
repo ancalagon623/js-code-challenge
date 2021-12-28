@@ -45,13 +45,56 @@ const isPalindrome = function(str) {
 };
 
 const largestPair = function(array) {
-  // your code here - don't forget to return a number!
+  const prodArray = array.map((num, index, arr) => {
+    if (arr[index + 1]) {
+      return num * arr[index + 1];
+    }
+  });
+
+  return prodArray.find((num, index, array) => {
+      return array.slice(0, -1).every(item => item <= num);
+  });
 };
 
 const removeParenth = function(str) {
-  // your code here - don't forget to return a string!
+  const characters = str.split('');
+  const newCharacters = [];
+  let include = true;
+
+  characters.forEach(char => {
+    if (char === '(') {
+      include = false;
+    }
+    if (include) {
+      newCharacters.push(char);
+    } else if (char === ')') {
+      include = true;
+    }
+  });
+
+  return newCharacters.join('');
 };
 
 const scoreScrabble = function(str) {
-  // your code here - don't forget to return a number!
+  const ranking = {
+    1: ['a', 'e', 'i', 'o', 'u', 'l', 'n', 'r', 's', 't'],
+    2: ['d', 'g'],
+    3: ['b', 'c', 'm', 'p'],
+    4: ['f', 'h', 'v', 'w', 'y'],
+    5: ['k'],
+    8: ['j', 'x'],
+    10: ['q', 'z']
+  };
+
+  let total = 0;
+  str.split('').forEach(letter => {
+    for (let pointValue in ranking) {
+      if (ranking[pointValue].includes(letter)) {
+        total += parseInt(pointValue);
+        break;
+      }
+    }
+  });
+
+  return total;
 };
